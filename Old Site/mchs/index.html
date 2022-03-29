@@ -344,32 +344,32 @@
                                 '12',
                             ],
                         };
-                        for (key in coords) {
-                            map.createPane('frame');
-                            map.getPane('frame').style.zIndex = 407;
-                            var img_frame = 'data/' + key + '/frame.png';
-                            var img_bounds_frame = [
-                                coords[key][0],
-                                coords[key][1],
-                            ];
-                            var layer_frame = new L.imageOverlay(
-                                img_frame,
-                                img_bounds_frame,
-                                {
-                                    pane: 'frame',
-                                }
-                            );
-                            map.addLayer(layer_frame);
+                        // for (key in coords) {
+                        //     map.createPane('frame');
+                        //     map.getPane('frame').style.zIndex = 407;
+                        //     var img_frame = 'data/' + key + '/frame.png';
+                        //     var img_bounds_frame = [
+                        //         coords[key][0],
+                        //         coords[key][1],
+                        //     ];
+                        //     var layer_frame = new L.imageOverlay(
+                        //         img_frame,
+                        //         img_bounds_frame,
+                        //         {
+                        //             pane: 'frame',
+                        //         }
+                        //     );
+                        //     map.addLayer(layer_frame);
 
-                            for (var j = 1; j <= coords[key][2]; j++) {
-                                // alert (key+j)
-                                // alert ("data/"+key+"/"+key+j+'.png')
-                                localStorage.setItem(
-                                    key + j,
-                                    'data/' + key + '/' + key + j + '.png'
-                                );
-                            }
-                        }
+                        //     for (var j = 1; j <= coords[key][2]; j++) {
+                        //         // alert (key+j)
+                        //         // alert ("data/"+key+"/"+key+j+'.png')
+                        //         localStorage.setItem(
+                        //             key + j,
+                        //             'data/' + key + '/' + key + j + '.png'
+                        //         );
+                        //     }
+                        // }
                         function setvalues() {
                             document.querySelector('.inputdata__high').value =
                                 '0';
