@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Varela" /> -->
+    <title>Моделирование ЧС</title>
+</head>
+<body>
+<!-- 
+Список TO DO:
+    сейчас
+        ? выдвижной F.A.Q.
+        подключить интерактивную карту со слоями
+        подключить и понятно изобразить погоду
+        подключить гифку 3дшную
+        ? сделать видимость существования других страниц?
+    позже:
+        реализовать  выбор пользователя 
+        реализовать загрузку отчёта
+        другие сервисы?
+
+ -->
+
+
+
+
+
+    <div class="sidebar">
+        <div class="in_sidebar choice_bar">
+            <ul>
+                
+                    <li><a href="index.html"><img src="images/raindrop.svg" alt=""><p>Паводки</p></a></li>
+                    <li><a href="snow_index.html"><img src="images/sneg.svg" alt=""><p>Лавины</p></a></li>
+                    <div class="active_choice">
+                        <li><a href="#"><img src="images/fire.svg" alt=""><p>Пожары</p></a></li>
+                    </div>
+            </ul>
+            <a href="https://www.mchs.gov.ru/" target="_blank">
+            <img src="images/MCHS_logo.png" class="choice_logo" alt="">
+            </a>
+        </div>
+        <div class="sb_right">    
+            <a href="#"> <div class="in_sidebar faq_bar sbr">
+                
+                <span> F.A.Q. </span>
+                <!--
+                    Сделать как раскрывабщееся окно?
+                    Информации не много, места много
+                    Должно быть красиво
+                 -->
+                 <div onclick="" class="hidden_faq">
+                    <hr color="white">
+                    <p>
+                    Это инструкция
+                    </p>
+                </div>
+                
+            </div></a>
+            <div class="in_sidebar employee sbr">
+                <img src="images/user.svg" alt="">
+                <div class="select_emp">
+                    <input class="select__input" type="hidden" name="">
+                    <div class="select__head">Выберите пользователя</div>
+                    <ul class="select__list" style="display: none;">
+                        <li class="select__item">Иван Иванов</li>
+                        <li class="select__item">Егор Егоров</li>
+                        <li class="select__item">Кристина Кристинова Кристовична из Кристиновска</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="in_sidebar anchors_bar sbr">
+                <ul>
+                    <!-- <li><a href="#anchor1">2D карта</a></li>
+                    <li><a href="#anchor2">Погода</a></li>
+                    <li><a href="#anchor3">3D карта</a></li> -->
+                    <!-- <li>Уровень угрозы</li>
+                    <li>Статистика</li> -->
+                </ul>
+            </div>
+            <button class="give_results">Загрузить отчёт</button>
+            <!-- <div class="give_results"></div> -->
+        </div>      
+    </div>
+
+
+    <!-- <div class="settings">
+        
+        <select name="" id="">
+            <option value=""disabled selected>Город</option>
+            <option value="">Варзуга</option>
+            <option value="">Кильдинстрой</option>
+        </select>
+        <button>Обновить</button>
+        <select name="" id="">
+            <option value="" disabled selected>Высота</option>
+            <option value="">0</option>
+            <option value="">50</option>
+            <option value="">100</option>
+            <option value="">150</option>
+            <option value="">200</option>
+            <option value="">250</option>
+            <option value="">300</option>
+            <option value="">350</option>
+            <option value="">400</option>
+        </select>
+        <button>Рассчитать</button>
+    </div> -->
+
+    <div class="main_content">
+        
+        
+        <div class="weather mc">
+           <p class="mc_header" id="anchor2">В разработке</p>  
+            <hr>
+        </div>
+        
+
+    </div>
+    <div class="footer">
+        <p>Проект разработат группой студентов МАГУ 3 курса Прикладной математики и информатики</p>
+        <a href="https://www.mchs.gov.ru/" target="_blank">
+        <img src="images/MCHS_logo.png" alt="">
+        </a>
+    </div>
+    
+    <script src="index.js"></script>
+</body>
+</html>

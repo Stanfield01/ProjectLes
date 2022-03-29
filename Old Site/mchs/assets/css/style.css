@@ -1,0 +1,348 @@
+html {
+    height: 100vh;
+}
+
+body {
+    font-size: 3.3vh;
+    color: #f7f3e9;
+    line-height: 1.3;
+    font-family: "Montserrat";
+    font-style: normal; 
+    font-weight: 500;
+
+    margin: 0;
+
+    height: 100vh;
+    
+}
+*:focus {
+    outline: none;
+}
+
+.container {
+    width: 100vw;
+    height: inherit;
+    
+    display: flex;
+    flex-direction: row;
+
+    max-width: inherit;
+
+    margin: 0;
+}
+
+
+/* Sidebar */
+
+.sidebar {
+    background-color: #a3d2ca;
+    width: 17vw;
+    position: fixed;
+    padding: 2vh;
+    height: 100vh;
+
+    flex-direction: column;
+    display: inline-block;
+}
+
+.sidebar__name {
+    text-align: center;
+    font-family: 'Montserrat';
+    font-weight: 700;
+
+    margin: 1vw;
+}
+
+/* images */
+.icon {
+    width: auto;
+}
+.icon img {
+    margin-left: 30%;
+    margin-top: 15%;
+    width: 7vw;
+}
+
+
+/* Buttons */
+
+.btn {
+    display: block;
+    text-align: center;
+    width: 100%;
+
+    padding: 1vh 3vw;
+    margin: 2vh 0 ;
+
+    border: none;
+    border-radius: 10vw;
+
+    background-color: #5eaaa8; 
+
+    color: #f7f3e9;
+    font: 500 1em 'Montserrat';
+
+    text-transform: uppercase;
+    text-decoration: none;
+
+    transition: background .3s linear, color .1s linear;
+}
+
+.btn:hover {
+    background-color: #888888;
+    color: #ddddda;
+    cursor: pointer;
+}
+.btn__clicked {
+    background-color: #000000;
+    color: #f3f4ed;
+    cursor: pointer;
+}
+
+.btn--arm {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    margin: 0.5vh 0.5vw;
+    border-radius: 1vw;
+    width: 16vw;
+    font-size: 1.5  vw;
+}
+
+.btn--next {
+    background-color: #f05945;
+    align-self: flex-end;
+    padding: 1vw 3vh;
+    width: 15.5vw;
+    font-size: 1.5vw;
+}
+
+.btn--downl {
+    padding: 5px 30px;
+}
+
+/* User */
+
+.user {
+    align-self: center;
+    margin: auto;
+    width: 17vw;
+
+}
+
+.user__title {
+    color: #2c2c2c;
+    align-content: сenter;
+    text-align: center;
+}
+
+
+.arm {
+    background-color: #a3d2ca;
+    width: 17vw;
+    border-radius: 1vw;
+    padding: 2vh 0;
+}
+
+
+/* Monitoring Page */
+/* sidebar stuff */
+
+
+select, input {
+
+    /* color: -internal-light-dark(#424642, white);  */
+    cursor: pointer;
+    border-radius: 8vh;
+    border: none;
+    background-color: #fff
+    ;
+}
+
+/* Info */
+
+.inputdata {
+    height: 20vh;
+    font-size: 100%;
+}
+
+.inputdata-block__town {
+    margin-bottom: 3vh;
+}
+
+.inputdata__town{
+    margin-left: 1.5vw;
+    width: 80%;
+    height: 5vh;
+    font-size: inherit;
+}
+
+.inputdata__town:focus {
+    border: none;
+    border-color: white;
+    background-color: #fff;
+    outline: none;
+}
+
+.inputdata__high {
+    margin-left: 1.5vw;
+    width: 77%;
+    height: 5vh;
+    font-size: inherit;
+    border: none;
+}
+
+.inputdata__high:focus {
+    margin-left: 1.5vw;
+    width: 77%;
+    height: 5vh;
+    font-size: inherit;
+    border: none;
+    outline: none;
+}
+
+.btn--submit {
+    height: 3.5vh;
+    width: 13vw;
+    margin-left: 11%;
+    font-size: 1.5vh;
+}
+
+.weather {
+    cursor: pointer;
+    height: 25vh;
+}
+
+.model {
+    cursor: pointer;
+    height: 25vh;
+}
+
+/* Map side */
+
+.mapside {
+    display: block;
+    width: 83vw;
+    margin-left: 20vw;
+}
+
+.water {
+    position: absolute;
+    top: 0vh;
+}
+.terrain {
+    position: absolute;
+    top: 0vh;
+}
+
+img#terrain, img#water {
+    width: 80vw;
+    position: absolute;
+    left: -1.08vw;
+}
+
+/* Radio buttons */
+/* 
+.form_radio_btn {
+	display: inline-block;
+    margin-left: 2vw;
+    margin-top: 2vh;
+    width: auto;
+}
+
+.form_radio_btn--arm {
+    margin: 1vh 0.5vw;
+    font-size: 90%;
+    width: 100%;
+}
+
+.form_radio_btn input[type=radio] {
+	display: none;
+} */
+
+
+
+.form_radio_btn label {
+    text-transform: uppercase;
+    display: inline-block;
+    background-color: #5eaaa8; 
+    
+    cursor: pointer;
+    
+    width: 11.5vw;
+    padding-left: 2vw;
+
+
+    font: 500 1em 'Montserrat';
+
+    border: none;
+    border-radius: 3vh;
+
+    user-select: none;
+    
+    transition: background .3s linear, color .1s linear;
+}
+/* 
+.form_radio_btn--arm label {
+    width: 14vw;
+} */
+ 
+/* Checked
+.form_radio_btn input[type=radio]:checked + label {
+	background: #000000;
+}
+ 
+/* Hover */
+.form_radio_btn label:hover {
+	background: #6e6e6e;
+	color: rgb(255, 255, 255);
+}
+ 
+/* Disabled */
+/* .form_radio_btn input[type=radio]:disabled + label { */
+	/* background: #efefef; */
+	/* color: #666; */
+/* } */
+
+/* WEATHER */
+
+.package, .package2 {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.pricing-table.row {
+    text-align: center;
+    position: absolute;
+    left: 23.05vw;
+    top: 87vh;
+    color: #333;
+}
+
+
+/* Fonts */
+
+@font-face {
+    font-family: "Montserrat";  
+    src: url("../fonts/Montserrat-ExtraLight.ttf") format("truetype"); 
+    font-style: normal; 
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: "Montserrat";  
+    src: url("../fonts/Montserrat-Bold.ttf") format("truetype"); 
+    font-style: normal; 
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: "Montserrat";  
+    src: url("../fonts/Montserrat-Medium.ttf") format("truetype"); 
+    font-style: normal; 
+    font-weight: 500;
+}
+
+
+
+/* __________________________ */
