@@ -214,40 +214,7 @@
             </div>
         </div>
 
-        <div class="settings">
-            <span>Населенный пункт</span>
-            <select
-                onchange="changemap(), changeHref()"
-                id="town"
-                class="inputdata__town"
-            >
-                <option value="68804916.33099987">Варзуга</option>
-                <option value="66393784.36586868">Кильдинстрой</option>
-                <option value="68686106.33127370">Магнетиты</option>
-                <option value="69015204.33077945">Роста</option>
-                <option value="68885100.33030500">Кола</option>
-                <option value="67942206.34553401">Ревда</option>
-            </select>
-            <span> Уровень воды, м</span>
-            <input
-                onchange="changewater()"
-                id="high"
-                class="inputdata__high"
-                required
-                placeholder="0"
-                type="number"
-                max="7"
-                min="0"
-            />
-            <div
-                style="float: left; width: 250px"
-                data-tooltip="Для открытия модели будет загружено до 200 Мб данных. Это занимает некоторое время"
-            >
-                <a target="_self" href="model.html" class="model"
-                    >Интерактивная 3D модель</a
-                >
-            </div>
-        </div>
+        
 
         <div class="main_content">
             <div class="d2_map mc">
