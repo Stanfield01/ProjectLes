@@ -220,10 +220,12 @@
                     <script src="js/leaflet-measure.js"></script>
                     <script>
                         var highlightLayer;
+                        var dicpic;
+                        var objOverlay
+                        
 
                         function highlightFeature(e) {
                             highlightLayer = e.target;
-
                             if (
                                 e.target.feature.geometry.type === 'LineString'
                             ) {
@@ -233,7 +235,7 @@
                             } else {
                                 highlightLayer.setStyle({
                                     fillColor: '#ffff00',
-                                    fillOpacity: 1,
+                                    fillOpacity: 0.1,
                                 });
                             }
                         }
@@ -263,6 +265,7 @@
                             primaryAreaUnit: 'sqmeters',
                             secondaryAreaUnit: 'hectares',
                         });
+                        
                         measureControl.addTo(map);
                         document.getElementsByClassName(
                             'leaflet-control-measure-toggle'
@@ -272,6 +275,8 @@
                         )[0].className += ' fas fa-ruler';
                         var bounds_group = new L.featureGroup([]);
 
+                        
+
                         function setBounds() {}
                         map.createPane('pane_OpenStreetMap_0');
                         map.getPane('pane_OpenStreetMap_0').style.zIndex = 400;
@@ -279,7 +284,7 @@
                             'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                             {
                                 pane: 'pane_OpenStreetMap_0',
-                                opacity: 1.0,
+                                opacity: 0.8,
                                 attribution: '',
                                 minZoom: 1,
                                 maxZoom: 28,
@@ -290,6 +295,7 @@
                         layer_OpenStreetMap_0;
                         map.addLayer(layer_OpenStreetMap_0);
 
+                        
 
                         map.createPane('pane_varz10');
                         map.getPane('pane_varz10').style.zIndex = 407;
@@ -379,7 +385,7 @@
                                     'option'
                                 )[0].selected = true;
                         }
-
+                        dicpic = L.imageOverlay('pic.png', [[70.000000, 29.000000], [66.000000, 42.000000]], {opacity:1.0}).addTo(map);
                         function changemap() {
                             (lat =
                                 Math.floor(
