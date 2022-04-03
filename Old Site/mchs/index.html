@@ -201,10 +201,15 @@
             </div>
         </div>
 
-        
-
+        <div class="settings" >           
+            <div style="display: inline-block; width: 180px;">
+                <Button>Симуляция</Button>
+            </div>            
+        </div>
+                 <!--var dicpic; 
+                 dicpic = L.imageOverlay('datasim/pic.png', [[70.000000, 29.000000], [66.000000, 42.000000]], {opacity:1.0}).addTo(map);  это было в классе главного контента-->
         <div class="main_content">
-            <div class="d2_map mc">
+            <div class="d2_map mc">                    
                 <p class="mc_header" id="anchor1">2D КАРТА МЕСТНОСТИ</p>
                 <div class="smart_map">
                     <div id="map"></div>
@@ -219,10 +224,8 @@
                     <script src="js/labels.js"></script>
                     <script src="js/leaflet-measure.js"></script>
                     <script>
-                        var highlightLayer;
-                        var dicpic;
-                        var objOverlay
-                        
+                        var highlightLayer;                        
+                        var objOverlay                        
 
                         function highlightFeature(e) {
                             highlightLayer = e.target;
@@ -385,7 +388,7 @@
                                     'option'
                                 )[0].selected = true;
                         }
-                        dicpic = L.imageOverlay('pic.png', [[70.000000, 29.000000], [66.000000, 42.000000]], {opacity:1.0}).addTo(map);
+                        
                         function changemap() {
                             (lat =
                                 Math.floor(
