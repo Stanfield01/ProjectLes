@@ -323,16 +323,18 @@
 
                         // Создание карты
 
-                        map.setView(new L.LatLng(68.000000, 34.589118), 6);
+                        map.setView(new L.LatLng(68.000000, 34.589118), 7);
                         
 
-                        var mesh_url = 'pic.png'; 
+                        var mesh_url = './datasim/0.png'; 
                         var mesh;
                         var mesh_created = false;
+                        
 
                         function addMesh() {
                             if (!mesh_created) {
-                                mesh = L.imageOverlay(mesh_url, [[70.000000, 29.000000], [66.000000, 42.000000]], {opacity:1.0}).addTo(map);
+                                var bounds = map.getBounds();
+                                mesh = L.imageOverlay(mesh_url, [bounds.getCenter(), [bounds.getNorthWest(), bounds.getSouthEast()]]).addTo(map);
                                 mesh_created = true;
                             }
                         };
