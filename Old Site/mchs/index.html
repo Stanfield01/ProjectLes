@@ -207,7 +207,14 @@
             </div>
             <div style="display: inline-block; width: 180px;">
                 <Button onclick="deleteMesh()">Удалить сетку</Button>
-            </div>         
+            </div>
+
+            <div style="display: inline-block; width: 180px;">
+                <Button onclick="prevSim()"> Назад </Button>
+            </div> 
+            <div style="display: inline-block; width: 180px;">
+                <Button onclick="nextSim()"> Вперед </Button>
+            </div> 
         </div>
 
                  <!--var dicpic; 
@@ -343,6 +350,26 @@
                             if (mesh_created) {
                                 map.removeLayer(mesh);
                                 mesh_created = false;
+                            }
+                        }
+
+                        var current_sim = 0;
+
+                        function prevSim() {
+                            if (current_sim > 0 && mesh_created) {
+                                current_sim--;
+                                mesh_url = './datasim/' + current_sim.toString() + ".png";
+                                deleteMesh();
+                                addMesh();
+                            }
+                        }
+
+                        function nextSim() {
+                            if (current_sim < 3 && mesh_created) {
+                                current_sim++;
+                                mesh_url = './datasim/' + current_sim.toString() + ".png";
+                                deleteMesh();
+                                addMesh();
                             }
                         }
 
