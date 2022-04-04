@@ -203,9 +203,13 @@
 
         <div class="settings" >           
             <div style="display: inline-block; width: 180px;">
-                <Button>Симуляция</Button>
-            </div>            
+                <Button onclick="addMesh()">Добавить сетку</Button>
+            </div>
+            <div style="display: inline-block; width: 180px;">
+                <Button onclick="deleteMesh()">Удалить сетку</Button>
+            </div>         
         </div>
+
                  <!--var dicpic; 
                  dicpic = L.imageOverlay('datasim/pic.png', [[70.000000, 29.000000], [66.000000, 42.000000]], {opacity:1.0}).addTo(map);  это было в классе главного контента-->
         <div class="main_content">
@@ -225,7 +229,7 @@
                     <script src="js/leaflet-measure.js"></script>
                     <script>
                         var highlightLayer;                        
-                        var objOverlay                        
+                        var objOverlay;                    
 
                         function highlightFeature(e) {
                             highlightLayer = e.target;
@@ -320,65 +324,26 @@
                         // Создание карты
 
                         map.setView(new L.LatLng(68.000000, 34.589118), 6);
+                        
 
-                        let coords = {
-                            kild: [
-                                [68.79042, 33.07042],
-                                [68.81542, 33.13792],
-                                '14',
-                            ],
-                            varz: [
-                                [66.38875, 36.54792],
-                                [66.41708, 36.63292],
-                                '7',
-                            ],
-                            rev: [
-                                [67.91958, 34.46792],
-                                [67.97125, 34.62542],
-                                '7',
-                            ],
-                            rst: [
-                                [69.00625, 33.00125],
-                                [69.03792, 33.10125],
-                                '12',
-                            ],
-                            kola: [
-                                [68.87292, 32.99125],
-                                [68.90042, 33.06875],
-                                '3',
-                            ],
-                            magn: [
-                                [68.67708, 33.11042],
-                                [68.69292, 33.15042],
-                                '12',
-                            ],
+                        var mesh_url = 'pic.png'; 
+                        var mesh;
+                        var mesh_created = false;
+
+                        function addMesh() {
+                            if (!mesh_created) {
+                                mesh = L.imageOverlay(mesh_url, [[70.000000, 29.000000], [66.000000, 42.000000]], {opacity:1.0}).addTo(map);
+                                mesh_created = true;
+                            }
                         };
-                        // for (key in coords) {
-                        //     map.createPane('frame');
-                        //     map.getPane('frame').style.zIndex = 407;
-                        //     var img_frame = 'data/' + key + '/frame.png';
-                        //     var img_bounds_frame = [
-                        //         coords[key][0],
-                        //         coords[key][1],
-                        //     ];
-                        //     var layer_frame = new L.imageOverlay(
-                        //         img_frame,
-                        //         img_bounds_frame,
-                        //         {
-                        //             pane: 'frame',
-                        //         }
-                        //     );
-                        //     map.addLayer(layer_frame);
 
-                        //     for (var j = 1; j <= coords[key][2]; j++) {
-                        //         // alert (key+j)
-                        //         // alert ("data/"+key+"/"+key+j+'.png')
-                        //         localStorage.setItem(
-                        //             key + j,
-                        //             'data/' + key + '/' + key + j + '.png'
-                        //         );
-                        //     }
-                        // }
+                        function deleteMesh() {
+                            if (mesh_created) {
+                                map.removeLayer(mesh);
+                                mesh_created = false;
+                            }
+                        }
+
                         function setvalues() {
                             document.querySelector('.inputdata__high').value =
                                 '0';
