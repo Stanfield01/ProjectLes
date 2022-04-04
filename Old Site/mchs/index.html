@@ -336,11 +336,11 @@
                         var mesh_url = './datasim/0.png'; 
                         var mesh;
                         var mesh_created = false;
-                        
+                        var bounds = map.getBounds();
 
                         function addMesh() {
                             if (!mesh_created) {
-                                var bounds = map.getBounds();
+                                bounds = map.getBounds();
                                 mesh = L.imageOverlay(mesh_url, [bounds.getCenter(), [bounds.getNorthWest(), bounds.getSouthEast()]]).addTo(map);
                                 mesh_created = true;
                             }
@@ -359,8 +359,8 @@
                             if (current_sim > 0 && mesh_created) {
                                 current_sim--;
                                 mesh_url = './datasim/' + current_sim.toString() + ".png";
-                                deleteMesh();
-                                addMesh();
+                                map.removeLayer(mesh);
+                                mesh = L.imageOverlay(mesh_url, [bounds.getCenter(), [bounds.getNorthWest(), bounds.getSouthEast()]]).addTo(map);
                             }
                         }
 
@@ -368,8 +368,8 @@
                             if (current_sim < 3 && mesh_created) {
                                 current_sim++;
                                 mesh_url = './datasim/' + current_sim.toString() + ".png";
-                                deleteMesh();
-                                addMesh();
+                                map.removeLayer(mesh);
+                                mesh = L.imageOverlay(mesh_url, [bounds.getCenter(), [bounds.getNorthWest(), bounds.getSouthEast()]]).addTo(map);
                             }
                         }
 
