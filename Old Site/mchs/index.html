@@ -318,10 +318,15 @@
                         var mesh;
                         var mesh_created = false;
                         var bounds = map.getBounds();
+                        var map_pixel_width = map.getPixelBounds().max.x - map.getPixelBounds().min.x;
+                        var map_pixel_height = map.getPixelBounds().max.y - map.getPixelBounds().min.y;
+                        var hex_radius = 30;
 
                         function addMesh() {
                             if (!mesh_created) {
                                 bounds = map.getBounds();
+                                alert(Math.round(map_pixel_height / hex_radius));
+                                alert(Math.round(map_pixel_width / hex_radius));
                                 mesh = L.imageOverlay(mesh_url, [bounds.getCenter(), [bounds.getNorthWest(), bounds.getSouthEast()]]).addTo(map);
                                 mesh_created = true;
                             }
