@@ -4,7 +4,7 @@
 var prognoz = 'prognoz'; //document.getElementById("prognoz").textContent;
 var emloyee = 'Имя_Сотрудника';
 var employee_test = '';
-var town_val = 'Варзуга';
+var town_val = 'Мурманск';
 var pogoda_table = 'pogoda'; //document.getElementById("weather_table").textContent;
 // var file_name =
 var select_town = document.getElementById('town');
