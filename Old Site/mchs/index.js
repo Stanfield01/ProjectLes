@@ -176,7 +176,7 @@ function changeHref() {
             if(townsInformers[0].selected == true) {
     
                 document.getElementById("frame-weather").setAttribute('src', 'https://rp5.ru/htmla.php?id='+Varzuga+'&lang=ru&um=00000&bg=%23466FD5&ft=%23466FD5&fc=%23466FD5&c=%23000000&f=Arial&s=12&sc=1');
-                document.querySelector(".changeName").setAttribute('href', 'https://rp5.ru/'+Varzuga+'/ru');
+                document.querySelector(".changeName").setAttribute('href', 'https://rp5.ru/'+Murmansk+'/ru');
                 document.getElementById("townName").innerHTML = "Варзуга";
                 
             } else if(townsInformers[1].selected == true) {
