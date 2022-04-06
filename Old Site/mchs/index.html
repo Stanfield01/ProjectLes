@@ -13,7 +13,6 @@
         <script src="pdf/pdfmake.min.js"></script>
         <script src="pdf/vfs_fonts.js"></script>
 
-        <!-- <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Varela" /> -->
         <style>
             #map {
                 width: inherit;
@@ -60,25 +59,13 @@
             <div class="sb_right">
                 <a href="#">
                     <div class="in_sidebar faq_bar sbr">
-                        <!-- <div style="float: left; width: 250px;" data-tooltip2='1. Выберите населенный пункт, нажимая на соответствующую форму ввода на верхней панели и на название н.п.
-                            2. Измените уровень подтопления, нажимая на стрелочки в правой части формы ввода на верхней панели
-                            
-                            Для быстрой навигации по странице нажимайте на названия разделов в боковой панели (Карта, Погода, GIF анимация)
-                            
-                            Для открытия 3D модели подтопления нажмите на красную кнопку "Интерактивная 3D модель" на верхней панели. Обратите внимание на предупреждение о загрузке большого объема данных
-                            
-                            Когда введены нужные данные, для формирования отчета нажмите кнопку "Отчет" в нижней части боковой панели
-                        '> -->
                         <span> Инструкция </span>
-                        <!-- </div> -->
-                        <!-- <div onclick="" class="hidden_faq"> -->
-                        <div class="faq">
-                          
+                        <div class="faq">                          
                                 Работа с системой
                             </p>
                             <br />
                             <p>
-                                  <p>Ввод данных</p>
+                                <p>Ввод данных</p>
                             <p>
                                 1. Выберите необходимую часть карты
                             </p>
@@ -217,8 +204,6 @@
             </div> 
         </div>
 
-                 <!--var dicpic; 
-                 dicpic = L.imageOverlay('datasim/pic.png', [[70.000000, 29.000000], [66.000000, 42.000000]], {opacity:1.0}).addTo(map);  это было в классе главного контента-->
         <div class="main_content">
             <div class="d2_map mc">                    
                 <p class="mc_header" id="anchor1">2D КАРТА МЕСТНОСТИ</p>
@@ -228,32 +213,12 @@
                     <script src="js/leaflet.js"></script>
                     <script src="js/leaflet.rotatedMarker.js"></script>
                     <script src="js/leaflet.pattern.js"></script>
-                    <script src="js/leaflet-hash.js"></script>
                     <script src="js/Autolinker.min.js"></script>
                     <script src="js/rbush.min.js"></script>
                     <script src="js/labelgun.min.js"></script>
                     <script src="js/labels.js"></script>
                     <script src="js/leaflet-measure.js"></script>
-                    <script>
-                        var highlightLayer;                        
-                        var objOverlay;                    
-
-                        function highlightFeature(e) {
-                            highlightLayer = e.target;
-                            if (
-                                e.target.feature.geometry.type === 'LineString'
-                            ) {
-                                highlightLayer.setStyle({
-                                    color: '#ffff00',
-                                });
-                            } else {
-                                highlightLayer.setStyle({
-                                    fillColor: '#ffff00',
-                                    fillOpacity: 0.1,
-                                });
-                            }
-                        }
-
+                    <script>                                         
                         var map = new L.map('map', {
                             zoomControl: true,
                             maxZoom: 28,
@@ -262,10 +227,6 @@
                             [68.897683, 32.963397],
                             [68.867508, 33.128933],
                         ]);
-                        var hash = new L.Hash(map);
-                        map.attributionControl.setPrefix(
-                            '<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>'
-                        );
                         var autolinker = new Autolinker({
                             truncate: {
                                 length: 30,
@@ -357,10 +318,7 @@
                                 map.removeLayer(mesh);
                                 mesh = L.imageOverlay(mesh_url, [bounds.getCenter(), [bounds.getNorthWest(), bounds.getSouthEast()]]).addTo(map);
                             }
-                        }
-
-                        
-                        
+                        }                       
                     </script>
                 </div>
                 <hr />
@@ -424,7 +382,7 @@
         <div class="footer">
             <p>
                 Проект разработан группой студентов МАГУ 3 курса направления
-                подготовки "Прикладная математика и информатика" <br /><br />
+                подготовки "Информатика и вычислительная техника" <br /><br />
                 &copy; 2003
                 <script>
                     new Date().getFullYear() > 2003 &&
