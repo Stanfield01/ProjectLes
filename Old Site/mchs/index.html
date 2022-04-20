@@ -203,18 +203,11 @@
 
         <div class="settings" >           
             <div style="display: inline-block; width: 180px;">
-                <Button onclick="addMesh()">Добавить сетку</Button>
+                <Button onclick="editMode()">Редактировать</Button>
             </div>
             <div style="display: inline-block; width: 180px;">
-                <Button onclick="deleteMesh()">Удалить сетку</Button>
+                <Button onclick="simulate()">Симулировать</Button>
             </div>
-
-            <div style="display: inline-block; width: 180px;">
-                <Button onclick="prevSim()"> Назад </Button>
-            </div> 
-            <div style="display: inline-block; width: 180px;">
-                <Button onclick="nextSim()"> Вперед </Button>
-            </div> 
         </div>
 
                  <!--var dicpic; 
@@ -249,7 +242,7 @@
                             } else {
                                 highlightLayer.setStyle({
                                     fillColor: '#ffff00',
-                                    fillOpacity: 0.1,
+                                    fillOpacity: 1,
                                 });
                             }
                         }
@@ -262,6 +255,7 @@
                             [68.897683, 32.963397],
                             [68.867508, 33.128933],
                         ]);
+
                         var hash = new L.Hash(map);
                         map.attributionControl.setPrefix(
                             '<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>'
@@ -311,55 +305,204 @@
 
                         // Создание карты
 
-                        map.setView(new L.LatLng(68.000000, 34.589118), 7);
-                        
+                        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                        }).addTo(map);
 
-                        var mesh_url = './datasim/0.png'; 
-                        var mesh;
-                        var mesh_created = false;
-                        var bounds = map.getBounds();
-                        var map_pixel_width = map.getPixelBounds().max.x - map.getPixelBounds().min.x;
-                        var map_pixel_height = map.getPixelBounds().max.y - map.getPixelBounds().min.y;
-                        var hex_radius = 30;
+                        L.VirtualGrid = L.FeatureGroup.extend({
+                        include: L.Mixin.Events,
+                        options: {
+                            cellSize: 64,
+                            delayFactor: 2.5,
+                            style: {
+                            stroke: true,
+                            color: '#3ac1f0',
+                            dashArray: null,
+                            lineCap: null,
+                            lineJoin: null,
+                            weight: 2,
+                            opacity: 1,
 
-                        function addMesh() {
-                            if (!mesh_created) {
-                                bounds = map.getBounds();
-                                alert(Math.round(map_pixel_height / hex_radius));
-                                alert(Math.round(map_pixel_width / hex_radius));
-                                mesh = L.imageOverlay(mesh_url, [bounds.getCenter(), [bounds.getNorthWest(), bounds.getSouthEast()]]).addTo(map);
-                                mesh_created = true;
+                            fill: true,
+                            fillColor: null, //same as color by default
+                            fillOpacity: 0.5,
+
+                            clickable: true
                             }
+                        },
+                        initialize: function(options){
+                            L.Util.setOptions(this, options);
+                            L.FeatureGroup.prototype.initialize.call(this, [], options);
+                        },
+                        onAdd: function(map){
+                            L.FeatureGroup.prototype.onAdd.call(this, map);
+                            this._map = map;
+                            this._cells = [];
+                            this._setupGrid(map.getBounds());
+
+                            map.on("move", this._moveHandler, this);
+                            map.on("zoomend", this._zoomHandler, this);
+                            map.on("resize", this._resizeHandler, this);
+                        },
+                        onRemove: function(map){
+                            L.FeatureGroup.prototype.onRemove.call(this, map);
+                            map.off("move", this._moveHandler, this);
+                            map.off("zoomend", this._zoomHandler, this);
+                            map.off("resize", this._resizeHandler, this);
+                        },
+
+                        _clearLayer: function(e) {
+                            this._cells = [];
+                        },
+                        _moveHandler: function(e){
+                            this._renderCells(e.target.getBounds());
+                        },
+                        _zoomHandler: function(e){
+                            this.clearLayers();
+                            this._renderCells(e.target.getBounds());
+                        },
+                        _renderCells: function(bounds) {
+                            var cells = this._cellsInBounds(bounds);
+                            this.fire("newcells", cells);
+                            for (var i = cells.length - 1; i >= 0; i--) {
+                            var cell = cells[i];
+                            if(this._loadedCells.indexOf(cell.id) === -1){
+                                (function(cell, i){
+                                setTimeout(this.addLayer.bind(this, L.rectangle(cell.bounds, this.options.style)), this.options.delayFactor*i);
+                                }.bind(this))(cell, i);
+                                this._loadedCells.push(cell.id);
+                            }
+                            }
+                        },
+                        _resizeHandler: function(e) {
+                            this._setupSize();
+                        },
+                        _setupSize: function(){
+                            this._rows = Math.ceil(this._map.getSize().x / this._cellSize);
+                            this._cols = Math.ceil(this._map.getSize().y / this._cellSize);
+                        },
+                        _setupGrid: function(bounds){
+                            this._origin = this._map.project(bounds.getNorthWest());
+                            this._cellSize = this.options.cellSize;
+                            this._setupSize();
+                            this._loadedCells = [];
+                            this.clearLayers();
+                            this._renderCells(bounds);
+                        },
+                        _cellPoint:function(row, col){
+                            var x = this._origin.x + (row*this._cellSize);
+                            var y = this._origin.y + (col*this._cellSize);
+                            return new L.Point(x, y);
+                        },
+                        _cellExtent: function(row, col){
+                            var swPoint = this._cellPoint(row, col);
+                            var nePoint = this._cellPoint(row-1, col-1);
+                            var sw = this._map.unproject(swPoint);
+                            var ne = this._map.unproject(nePoint);
+                            return new L.LatLngBounds(ne, sw);
+                        },
+                        _cellsInBounds: function(bounds){
+                            var offset = this._map.project(bounds.getNorthWest());
+                            var center = bounds.getCenter();
+                            var offsetX = this._origin.x - offset.x;
+                            var offsetY = this._origin.y - offset.y;
+                            var offsetRows = Math.round(offsetX / this._cellSize);
+                            var offsetCols = Math.round(offsetY / this._cellSize);
+                            var cells = [];
+                            for (var i = 0; i <= this._rows; i++) {
+                                for (var j = 0; j <= this._cols; j++) {
+                                    var row = i-offsetRows;
+                                    var col = j-offsetCols;
+                                    var cellBounds = this._cellExtent(row, col);
+                                    var cellId = row+":"+col;
+                                    cells.push({
+                                    id: cellId,
+                                    bounds: cellBounds,
+                                    distance:cellBounds.getCenter().distanceTo(center)
+                                    });
+                                }
+                            }
+                            cells.sort(function (a, b) {
+                            return a.distance - b.distance;
+                            });
+                            return cells;
+                        }
+                        });
+
+                        L.virtualGrid = function(url, options){
+                            return new L.VirtualGrid(options);
                         };
 
-                        function deleteMesh() {
-                            if (mesh_created) {
-                                map.removeLayer(mesh);
-                                mesh_created = false;
-                            }
-                        }
-
-                        var current_sim = 0;
-
-                        function prevSim() {
-                            if (current_sim > 0 && mesh_created) {
-                                current_sim--;
-                                mesh_url = './datasim/' + current_sim.toString() + ".png";
-                                map.removeLayer(mesh);
-                                mesh = L.imageOverlay(mesh_url, [bounds.getCenter(), [bounds.getNorthWest(), bounds.getSouthEast()]]).addTo(map);
-                            }
-                        }
-
-                        function nextSim() {
-                            if (current_sim < 3 && mesh_created) {
-                                current_sim++;
-                                mesh_url = './datasim/' + current_sim.toString() + ".png";
-                                map.removeLayer(mesh);
-                                mesh = L.imageOverlay(mesh_url, [bounds.getCenter(), [bounds.getNorthWest(), bounds.getSouthEast()]]).addTo(map);
-                            }
-                        }
+                        L.virtualGrid({
+                            cellSize: 64,
+                            opacity: 1,
+                        }).addTo(map);
 
                         
+                        var edit_mode = false;
+                        var simulate_mode = false;
+
+                        var point;
+                        var prev_point;
+                        var sim_step = 1;
+
+                        document.addEventListener('click', function(e) {
+                            e = e || window.event;
+                            var target = e.target || e.srcElement,
+                                text = target.textContent || target.innerText;
+                            
+                            
+                            // toggle color
+                            if (target.toString() == '[object SVGPathElement]') {
+                                if (edit_mode == true && simulate_mode == false && (target.getAttribute('style') == null || target.getAttribute('style') == 'fill: #3ac1f0')) {
+                                    if (prev_point != null) {
+                                        prev_point.setAttribute('style', 'fill: #3ac1f0');
+                                    }
+                                    prev_point = target;
+                                    target.setAttribute('style', 'fill: red');
+                                    point = target.getBoundingClientRect();
+                                }
+                            }
+                        }, false);
+
+                        function editMode() {
+                            if (!edit_mode) {
+                                simulate_mode = false;
+                                sim_step = 1;
+                                map.touchZoom.disable();
+                                map.doubleClickZoom.disable();
+                                map.scrollWheelZoom.disable();
+                                map.boxZoom.disable();
+                                map.keyboard.disable();
+                                $(".leaflet-control-zoom").css("visibility", "hidden");
+                                edit_mode = true;
+                                map.dragging.disable();
+                            }
+                            else {
+                                simulate_mode = false;
+                                sim_step = 1;
+                                map.touchZoom.enable();
+                                map.doubleClickZoom.enable();
+                                map.scrollWheelZoom.enable();
+                                map.boxZoom.enable();
+                                map.keyboard.enable();
+                                $(".leaflet-control-zoom").css("visibility", "visible");
+                                edit_mode = false;
+                                map.dragging.enable();
+                            }
+                        };  
+
+                        function simulate() {
+                            simulate_mode = true;
+                            sim_step++;
+                            var cells = 2 * sim_step - 1;
+                            for (var i = -cells / 2; i < cells / 2; i++) {
+                                //alert(point.top.toString() + " " + point.left.toString());
+                                //alert(document.elementFromPoint(point.left, point.top));
+                                //alert(document.elementFromPoint(point.top, point.left));
+                                document.elementFromPoint(point.left - 64 * i, point.top - 64 * sim_step + 96).setAttribute('style', 'fill: red');
+                            }
+                        }
                         
                     </script>
                 </div>
