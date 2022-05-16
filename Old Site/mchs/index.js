@@ -163,7 +163,7 @@ function changeHref() {
     let townsInformers = document.querySelector('#town').getElementsByTagName('option');
     console.log(townsInformers);
     
-    let Varzuga = 2005,
+    let Varzuga = 5538,
         Kildin = 3983,
         Magnet = 103723,
         Rosta = 5538,
@@ -177,7 +177,7 @@ function changeHref() {
     
                 document.getElementById("frame-weather").setAttribute('src', 'https://rp5.ru/htmla.php?id=5538&lang=ru&um=00000&bg=%2523466FD5&ft=%2523466FD5&fc=%2523466FD5&c=%2523000000&f=Arial&s=12&sc=1');
                 document.querySelector(".changeName").setAttribute('href', 'http://rp5.ru/5538/ru');
-                document.getElementById("townName").innerHTML = "Варзуга";
+                document.getElementById("townName").innerHTML = "Мурманск";
                 
             } else if(townsInformers[1].selected == true) {
     
